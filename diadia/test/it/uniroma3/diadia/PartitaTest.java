@@ -16,7 +16,7 @@ public class PartitaTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		this.partita = new Partita();
+		this.partita = new Partita(this.labirinto);
 		this.labirinto = new Labirinto();
 		this.nuovaStanzaVincente = new Stanza("nuovaStanzaVincente");
 	}
