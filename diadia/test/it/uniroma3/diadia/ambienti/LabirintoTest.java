@@ -1,53 +1,43 @@
 package it.uniroma3.diadia.ambienti;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.Stanza;
-
 public class LabirintoTest {
-	
-	private Labirinto labirinto;
-	private Stanza stanzaVincente;
-	private Stanza stanzaIniziale;
-	
+	Labirinto l;
+	Stanza biblioteca;
+	Stanza DS1;
 
 	@Before
-	public void setUp() throws Exception {
-		this.labirinto = new Labirinto();
-		this.stanzaVincente = new Stanza("stanzaVincente");
-		this.stanzaIniziale = new Stanza("stanzaIniziale");
-		this.labirinto.setStanzaVincente(stanzaVincente);
-		this.labirinto.setStanzaIniziale(stanzaIniziale);
+	public void setUp() {
+		l = Labirinto.newBuilder()
+				.addStanzaIniziale("Atrio")
+				.addAttrezzo("martello", 3)
+				.addStanzaVincente("Biblioteca")
+				.addAdiacenza("Atrio", "Biblioteca", "nord")
+				.getLabirinto();
+		
+		biblioteca = new Stanza("Biblioteca");
+		DS1 = new Stanza("DS1");
+		
 	}
-	
-	/**
-	 * Test per il metodo getStanzaVincente
-	 */
+
+
 	@Test
-	public void testControlloDellaStanzaVincente() {
-		assertEquals(stanzaVincente, this.labirinto.getStanzaVincente());
+	public void testGetStanzaVincente() {
+		assertEquals("Biblioteca", l.getStanzaVincente().getNome());
 	}
+
+
 	@Test
-	public void testCambioStanzaVincente() {
-		Stanza nuovaStanzaVincente = new Stanza("nuovaStanzaVincente");
-		this.labirinto.setStanzaVincente(nuovaStanzaVincente);
-		assertEquals(nuovaStanzaVincente, this.labirinto.getStanzaVincente());
-	}
-	/**
-	 * Test per il metodo getStanzaIniziale
-	 */
-	@Test
-	public void testControloStanzaIniziale() {
-		assertEquals(stanzaIniziale, this.labirinto.getStanzaIniziale());
+	public void testSetStanzaCorrente() {
+		l.setStanzaCorrente(DS1);
+		assertEquals(DS1, l.getStanzaCorrente());
 	}
 	@Test
-	public void testCambioStanzaVIniziale() {
-		Stanza nuovaStanzaIniziale = new Stanza("nuovaStanzaIniziale");
-		this.labirinto.setStanzaVincente(nuovaStanzaIniziale);
-		assertEquals(nuovaStanzaIniziale, this.labirinto.getStanzaVincente());
+	public void testGetStanzaCorrente() {
+		assertEquals("Atrio", l.getStanzaCorrente().getNome());
 	}
 
 }
